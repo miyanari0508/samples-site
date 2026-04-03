@@ -1,0 +1,70 @@
+@use "../global" as *;
+
+html {
+  font-size: 10px;
+}
+
+@include mq(pc_max) {
+  html {
+    font-size: calc(10 / $media_pc * 100vw);
+  }
+}
+
+@include mq(sp) {
+  html {
+    font-size: calc(10 / $media_sp * 100vw);
+  }
+}
+
+@include mq(pc_min) {
+  ._sp {
+    display: none !important
+  }
+}
+
+@include mq(sp) {
+  ._pc {
+    display: none !important
+  }
+}
+
+* {
+  transition: all 0s ease;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+}
+
+main {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  //background: #f2e9df;
+
+}
+
+@include mq() {
+  main {
+    width: 100%;
+  }
+}
+
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+img,
+svg,
+video {
+  width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}

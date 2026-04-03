@@ -1,0 +1,26 @@
+$media_pc: 1000;
+$media_sp: 750;
+$media_mp: 599;
+$nav_sp: 750;
+
+$breakpoint: (
+  pc_max: 'screen and (max-width: #{$media_pc}px)',
+  pc_min: 'screen and (min-width: #{$media_sp + 1}px)',
+  sp: 'screen and (max-width: #{$media_sp}px)',
+  nav: 'screen and (max-width: #{$nav_sp}px)',
+  mp: 'screen and (max-width: #{$nav_sp}px)',
+);
+$clr_key3: #2C6274;
+$clr_key2: #35909F;
+$clr_key1: #699EAC;
+$clr_wht: #fff;
+$clr_blk: #000;
+$clr_red: #7c0d22;
+$clr_grad: linear-gradient(to right, #7d889f 0%, #225675 100%);
+// $clr_blu: #69babe;
+// $clr_grn: #;
+// $clr_ylw: #;
+// $clr_red: #;
+
+
+$cl_blue:#0099D9;
