@@ -3,23 +3,61 @@
 // ______________________________________
 #pageTop {
   $img_path: "top";
-
-  main {}
-
-  section {
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 0 20px;
-    li {
-      margin-bottom: 10px;
-      a {
-      }
-    }
+  
+  canvas { 
+    display: block; 
+    width: 100% !important; 
+    height: 100% !important; 
   }
 
+  .content {
+    position: relative;
+    text-align: center;
+    color: white;
+    z-index: 10;
+    pointer-events: none;
+    margin-top: 10rem;
+  }
 
+  .content h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
 
+  .content p {
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    letter-spacing: 0.2em;
+    opacity: 0.6;
+    text-transform: uppercase;
+  }
 
+  .controls {
+    margin-top: 7rem;
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .controls button {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    transition: background 0.3s;
+  }
+
+  .controls button:hover { 
+    background: rgba(255,255,255,0.25); 
+  }
 
 
   // ______________________________________

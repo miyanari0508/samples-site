@@ -32,7 +32,7 @@ if ($pickup) {
 
 
 // create_path
-$path_css = $path . '/assets/build/css';
+$path_css = $path . '/assets/build/css/css';
 $path_js = $path . '/assets/build/js';
 $path_img = $path . '/assets/build/img';
 $path_video = $path . '/assets/video';
