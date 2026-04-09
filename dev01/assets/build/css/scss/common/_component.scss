@@ -5,16 +5,16 @@ figure {
   position: relative;
 }
 
-main {
-  margin: 20rem 0 0;
-}
+// main {
+//   margin: 20rem 0 0;
+// }
 
-@include mq() {
-  main {
-    margin: 40rem 0 0;
+// @include mq() {
+//   main {
+//     margin: 40rem 0 0;
 
-  }
-}
+//   }
+// }
 
 #canvas-container {
   width: 100%;
@@ -111,22 +111,93 @@ main {
 // ______________________________________
 .com-content {
   //max-width: 1200px;
-  // max-width: 1369px;
+  max-width: 1634px;
   width: 94%;
   margin: 0 auto;
-}
 
-@include mq() {
-  .com-content {
-    width: 68.0rem;
+  @include mq() {
+    width: 92%;
   }
 }
 
+.com-ttl {
+  font-size: 3.5rem;
+  line-height: calc(71/35);
+  color: #fff;
+  letter-spacing: 0.03em;
+  font-weight: 400;
+  font-family: "Shippori Mincho B1", serif;
 
+}
 
+// ______________________________________
+.com_linkMore {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 2.9rem 0 2.9rem 2px;
+  overflow: hidden;
+  max-width: 50.3rem;
+  width: 100%;
+  transition: 0.5s;
+  border-bottom: 1px solid rgba(#fff, .5);
 
+  &.c-right {
+    justify-content: flex-end;
+  }
 
+  .text {
+    font-size: 2.1rem;
+    letter-spacing: 2.1px;
+    font-family: "Shippori Mincho B1", serif;
+  }
 
+  .arrow {
+    position: relative;
+    width: 3.2rem;
+    height: 1.7rem;
+    transition: 0.5s;
+    animation: slide-ping 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 2.2rem;
+      height: 1px;
+      background-color: #fff;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      width: 1.6rem;
+      height: 1.6rem;
+      border-bottom: 1px solid #fff;
+      border-right: 1px solid #fff;
+      top: 50%;
+      transform: translateY(-50%) rotate(-35deg) scaleY(0.9) skew(20deg);
+      right: 0.6rem;
+    }
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+@keyframes slide-ping {
+  0%   { transform: translateX(0);   opacity: 1; }
+  45%  { transform: translateX(60%); opacity: 0; }
+  46%  { transform: translateX(-40%); opacity: 0; }
+  100% { transform: translateX(0);   opacity: 1; }
+}
 // _____________________________________
 
 .com-list {
@@ -620,6 +691,20 @@ main {
 
   &_on {
     transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.m_fade {
+  translate: 0 30px;
+  filter: blur(32px);
+  opacity: 0.5;
+  transition: translate 1.8s cubic-bezier(.215, .61, .355, 1), filter 1s cubic-bezier(.215, .61, .355, 1), opacity 1.2s cubic-bezier(.215, .61, .355, 1);
+  will-change: translate, opacity, filter;
+
+  &_on {
+    translate: 0 0;
+    filter: blur(0);
     opacity: 1;
   }
 }

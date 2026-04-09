@@ -1,13 +1,6 @@
 const vertexShader = `
-  #define PI 3.1415926535897932384626433832795
-  varying float zDepth;
   varying vec2 vUv;
-  uniform float uTime;
-  uniform float uRippleFreq;
-  uniform float uRippleAmp;
-  uniform float uRippleIntensity;
-  uniform float uRippleDamping;
- 
+
   void main() {
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
@@ -17,7 +10,6 @@ const vertexShader = `
 const fragmentShader = `
   #define PI 3.1415926535897932384626433832795
  
-  varying float zDepth;
   varying vec2 vUv;
   uniform vec2  uCenter1;
   uniform vec2  uCenter2;
@@ -107,7 +99,7 @@ const fragmentShader = `
 `;
  
 // THREE.JS SETUP 
-const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, preserveDrawingBuffer: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('canvas-container').appendChild(renderer.domElement);
@@ -274,12 +266,78 @@ function animate() {
   uniforms.uWaterThickness.value = props2.thickness;
  
   renderer.render(scene, camera);
+  updateGradientElements();
 }
- 
-// INIT 
+
+// GRADIENT BACKGROUND — dùng attribute [data-gradient-bg="modeName"]
+// Chỉ update canvas khi element đang visible trong viewport
+const _gcVisible = new Set();
+let _gcObserver = null;
+
+function setupGradientElements() {
+  if (!_gcObserver) {
+    _gcObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) _gcVisible.add(e.target);
+        else _gcVisible.delete(e.target);
+      });
+    }, { rootMargin: '100px' });
+  }
+
+  document.querySelectorAll('[data-gradient-bg]').forEach(el => {
+    if (el.querySelector('._gc')) return;
+    const gc = document.createElement('canvas');
+    gc.className = '_gc';
+    gc.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;';
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    el.insertBefore(gc, el.firstChild);
+    Array.from(el.children).forEach(child => {
+      if (child === gc) return;
+      if (getComputedStyle(child).position === 'static') child.style.position = 'relative';
+    });
+    _gcObserver.observe(el);
+  });
+}
+
+function updateGradientElements() {
+  // Không query DOM mỗi frame — dùng Set các element đang visible
+  if (!_gcVisible.size) return;
+
+  const src = renderer.domElement;
+  const c1x = uniforms.uCenter1.value.x,    c1y = uniforms.uCenter1.value.y;
+  const c2x = uniforms.uCenter2.value.x,    c2y = uniforms.uCenter2.value.y;
+  const rad  = uniforms.uWaterRadius.value,  thi = uniforms.uWaterThickness.value;
+
+  _gcVisible.forEach(el => {
+    const gc  = el.querySelector('._gc');
+    if (!gc) return;
+    const cfg = ir[el.dataset.gradientBg];
+    if (!cfg) return;
+    const r = el.getBoundingClientRect();
+    if (r.width <= 0 || r.height <= 0) return;
+
+    uniforms.uCenter1.value.set(cfg.props1.x, cfg.props1.y);
+    uniforms.uCenter2.value.set(cfg.props2.x, cfg.props2.y);
+    uniforms.uWaterRadius.value    = cfg.props2.radius;
+    uniforms.uWaterThickness.value = cfg.props2.thickness;
+    renderer.render(scene, camera);
+
+    gc.width  = Math.round(r.width);
+    gc.height = Math.round(r.height);
+    gc.getContext('2d').drawImage(src, 0, 0, gc.width, gc.height);
+  });
+
+  uniforms.uCenter1.value.set(c1x, c1y);
+  uniforms.uCenter2.value.set(c2x, c2y);
+  uniforms.uWaterRadius.value    = rad;
+  uniforms.uWaterThickness.value = thi;
+  renderer.render(scene, camera);
+}
+
+// INIT
 resize();
  
-const isHome = (location.pathname === '/' || location.pathname === '/en/');
+const isHome = true; 
 const initialMode = isHome ? 'intro' : 'normal';
  
 Object.assign(props1, ir[initialMode].props1);
@@ -290,5 +348,6 @@ currentMode = initialMode;
  
 animate();
  
-window.changeMode  = changeMode;
-window.triggerWave = doWave;
+window.changeMode            = changeMode;
+window.triggerWave           = doWave;
+window.setupGradientElements = setupGradientElements;

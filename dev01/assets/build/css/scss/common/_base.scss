@@ -1,7 +1,8 @@
 @use "../global" as *;
 
 html {
-  font-size: 10px;
+  // font-size: 10px;
+  font-size: calc(10 / $media_pc * 100vw);
 }
 
 @include mq(pc_max) {
@@ -45,7 +46,7 @@ body {
 main {
   display: block;
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   //background: #f2e9df;
 
 }
