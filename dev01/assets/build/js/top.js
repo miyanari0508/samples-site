@@ -13,27 +13,47 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(time => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
+// FIX iOS VIEWPORT HEIGHT 
+const setVh = () => {
+  document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
+};
+
+setVh();
+window.addEventListener('resize', setVh);
+window.addEventListener('orientationchange', setVh);
+
 // PARALLAX
 function initParallax() {
   document.querySelectorAll('.parallax-section').forEach(section => {
     if (section.closest('.sense_section--0')) return;
-
+  
     const media = section.querySelector('.parallax-img img, .parallax-img video');
     if (!media) return;
-
-    gsap.set(media, { scale: 1.8, yPercent: -40, force3D: true });
-    const tl = gsap.timeline({
+  
+    const SCALE_START    = 1.2;
+    const PARALLAX_SHIFT = 50;
+  
+    gsap.set(media, { scale: SCALE_START, yPercent: -PARALLAX_SHIFT, force3D: true });
+  
+    gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: 'top bottom',
         end: 'bottom top',
         scrub: true,
       }
+    }).to(media, {
+      scale: 1.0,
+      yPercent: PARALLAX_SHIFT,
+      ease: 'none',
+      force3D: true,
     });
-    tl.to(media, { scale: 1.0, yPercent: 0, ease: 'none', duration: 1, force3D: true })
-      .to(media, { scale: 1.8, yPercent: 40, ease: 'none', duration: 1, force3D: true });
+    ScrollTrigger.addEventListener('refreshInit', () => {
+      gsap.set(media, { scale: SCALE_START, yPercent: -PARALLAX_SHIFT });
+    });
   });
 
+window.addEventListener('load', () => ScrollTrigger.refresh());
   document.querySelectorAll('.sense_section .img img').forEach(img => {
     if (img.closest('.sense_section--0')) return;
 

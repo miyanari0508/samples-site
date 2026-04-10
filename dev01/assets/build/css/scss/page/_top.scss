@@ -163,18 +163,18 @@
   .parallax-img {
     position: relative;
     width: 100%;
-    overflow: hidden;  
+    overflow: hidden;
   }
   
   .parallax-img img,
   .parallax-img video {
     width: 100%;
-    height: 100vh;
+    height: calc(100% + var(--vh, 100vh));
+    min-height: 100vh;
     object-fit: cover;
     display: block;
     transform-origin: center center;
     will-change: transform;
-    transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
   }

@@ -1189,15 +1189,14 @@ figure.m_scale.m_scale_on img {
 #pageTop .parallax-img img,
 #pageTop .parallax-img video {
   width: 100%;
-  height: 100vh;
+  height: calc(100% + var(--vh, 100vh));
+  min-height: 100vh;
   -o-object-fit: cover;
      object-fit: cover;
   display: block;
   -webkit-transform-origin: center center;
           transform-origin: center center;
   will-change: transform;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
