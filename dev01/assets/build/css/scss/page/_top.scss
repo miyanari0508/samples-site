@@ -3,6 +3,163 @@
 // ______________________________________
 #pageTop {
   $img_path: "top";
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+
+  #custom-scrollbar {
+    position: fixed;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+    &.is-visible {
+      opacity: 1;
+    }
+
+    .csb_item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &.is-active {
+        .csb_dot {
+          width: 6px;
+          height: 6px;
+          transform: translateX(1px);
+        }
+
+        .csb_diamond-path {
+          stroke-dashoffset: 0; 
+        }
+      }
+    }
+
+    .csb_marker {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .csb_dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background-color: #fff;
+      transition: all 0.1s ease;
+    }
+
+    .csb_diamond {
+      position: absolute;
+      top: -3px;
+      left: -2px;
+      width: 16px;
+      height: 16px;
+      overflow: visible;
+
+      .csb_diamond-path {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 1;
+        stroke-dasharray: 31.42;
+        stroke-dashoffset: 31.42; 
+        transform-origin: center;
+        transform: rotate(-90deg);
+        transition: stroke-dashoffset 0.5s ease, stroke 0.4s ease;
+      }
+    }
+
+    .csb_line-bottom {
+      position: relative;
+      width: 1px;
+      height: 28px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        background-image: repeating-linear-gradient(to bottom, #fff 0, #fff 2px, transparent 0, transparent 4px);
+      }
+
+      .csb_line-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        background-color: #fff;
+        transform: scaleY(0);
+        transform-origin: top center;
+        opacity: 0;
+        transition: opacity 0.2s ease, background-color 0.4s ease;
+      }
+    }
+
+    .csb_item--end .csb_line-bottom {
+      display: none;
+    }
+
+    &.is-dark {
+
+      .csb_dot {
+        background-color: #000;
+      }
+
+      .csb_diamond-path {
+        stroke: #000;
+      }
+
+      .csb_line-bottom {
+        &::before {
+          background-image: repeating-linear-gradient(
+            to bottom,
+            #000 0px,
+            #000 2px,
+            transparent 0,
+            transparent 4px
+          );
+        }
+
+        .csb_line-fill {
+          background-color: #000;
+        }
+      }
+    }
+
+    @include mq() {
+      right: 3px;
+
+      .csb_item {
+        &.is-active {
+          .csb_dot {
+            transform: translateX(0);
+            width: 5px;
+            height: 5px;
+          }
+        }
+      }
+
+      .csb_diamond {
+        left: -2px;
+        top: -2px;
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
 
   #loading-screen {
     position: fixed;
@@ -103,11 +260,22 @@
     overflow: hidden;
 
     &--2 {
+      .parallax-logo-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+        transform-origin: center center;
+        will-change: transform;
+      }
+
       .sense_logo {
         position: absolute;
-        top: 70%;
-        left: 71.3%;
+        top: 69%;
+        left: 73.3%;
         transform: translate(-50%, -50%);
+        pointer-events: auto;
         text-align: center;
         color: #fff;
         width: 30.4rem;
@@ -120,8 +288,8 @@
         @include mq() {
           top: auto;
           left: auto;
-          bottom: 2rem;
-          right: 2rem;
+          bottom: 7rem;
+          right: 5rem;
           transform: translate(0%, 0%);
         }
 
@@ -261,7 +429,7 @@
 
           .main-ttlJp {
             font-size: 5.6rem;
-            font-weight: 700;
+            font-weight: 400;
             color: #fff;
             position: absolute;
             top: 47%;
@@ -1158,6 +1326,18 @@
                 position: relative;
                 overflow: hidden;
 
+                &.m_fade_on {
+                  &::before {
+                    left: -14rem;
+                    top: -13.2rem;
+                  }
+  
+                  &::after {
+                    right: -13.4rem;
+                    bottom: -14rem;
+                  }
+                }
+
                 &::before,
                 &::after {
                   position: absolute;
@@ -1167,16 +1347,18 @@
                   background-color: #607985;
                   mix-blend-mode: multiply;
                   transform: rotate(44.5deg);
+                  transition: all 1.5s ease;
+                  transition-delay: 0.1s;
                 }
 
                 &::before {
-                  left: -14rem;
-                  top: -13.2rem;
+                  left: -100%;
+                  top: -100%;
                 }
 
                 &::after {
-                  right: -13.4rem;
-                  bottom: -14rem;
+                  right: -100%;
+                  bottom: -100%;
                 }
               }
 

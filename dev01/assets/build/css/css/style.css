@@ -1021,6 +1021,164 @@ figure.m_scale.m_scale_on img {
           transform: scale(1);
 }
 
+#pageTop {
+  scrollbar-width: none;
+}
+#pageTop::-webkit-scrollbar {
+  display: none;
+}
+#pageTop #custom-scrollbar {
+  position: fixed;
+  right: 3rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 200;
+  pointer-events: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+#pageTop #custom-scrollbar.is-visible {
+  opacity: 1;
+}
+#pageTop #custom-scrollbar .csb_item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+#pageTop #custom-scrollbar .csb_item.is-active .csb_dot {
+  width: 6px;
+  height: 6px;
+  -webkit-transform: translateX(1px);
+          transform: translateX(1px);
+}
+#pageTop #custom-scrollbar .csb_item.is-active .csb_diamond-path {
+  stroke-dashoffset: 0;
+}
+#pageTop #custom-scrollbar .csb_marker {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+#pageTop #custom-scrollbar .csb_dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #fff;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+#pageTop #custom-scrollbar .csb_diamond {
+  position: absolute;
+  top: -3px;
+  left: -2px;
+  width: 16px;
+  height: 16px;
+  overflow: visible;
+}
+#pageTop #custom-scrollbar .csb_diamond .csb_diamond-path {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1;
+  stroke-dasharray: 31.42;
+  stroke-dashoffset: 31.42;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transition: stroke-dashoffset 0.5s ease, stroke 0.4s ease;
+  transition: stroke-dashoffset 0.5s ease, stroke 0.4s ease;
+}
+#pageTop #custom-scrollbar .csb_line-bottom {
+  position: relative;
+  width: 1px;
+  height: 28px;
+}
+#pageTop #custom-scrollbar .csb_line-bottom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background-image: repeating-linear-gradient(to bottom, #fff 0, #fff 2px, transparent 0, transparent 4px);
+}
+#pageTop #custom-scrollbar .csb_line-bottom .csb_line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background-color: #fff;
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transform-origin: top center;
+          transform-origin: top center;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease, background-color 0.4s ease;
+  transition: opacity 0.2s ease, background-color 0.4s ease;
+}
+#pageTop #custom-scrollbar .csb_item--end .csb_line-bottom {
+  display: none;
+}
+#pageTop #custom-scrollbar.is-dark .csb_dot {
+  background-color: #000;
+}
+#pageTop #custom-scrollbar.is-dark .csb_diamond-path {
+  stroke: #000;
+}
+#pageTop #custom-scrollbar.is-dark .csb_line-bottom::before {
+  background-image: repeating-linear-gradient(to bottom, #000 0px, #000 2px, transparent 0, transparent 4px);
+}
+#pageTop #custom-scrollbar.is-dark .csb_line-bottom .csb_line-fill {
+  background-color: #000;
+}
+@media screen and (max-width: 750px) {
+  #pageTop #custom-scrollbar {
+    right: 3px;
+  }
+  #pageTop #custom-scrollbar .csb_item.is-active .csb_dot {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    width: 5px;
+    height: 5px;
+  }
+  #pageTop #custom-scrollbar .csb_diamond {
+    left: -2px;
+    top: -2px;
+    width: 15px;
+    height: 15px;
+  }
+}
 #pageTop #loading-screen {
   position: fixed;
   inset: 0;
@@ -1120,12 +1278,23 @@ figure.m_scale.m_scale_on img {
   height: auto;
   overflow: hidden;
 }
+#pageTop .parallax-section--2 .parallax-logo-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  will-change: transform;
+}
 #pageTop .parallax-section--2 .sense_logo {
   position: absolute;
-  top: 70%;
-  left: 71.3%;
+  top: 69%;
+  left: 73.3%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  pointer-events: auto;
   text-align: center;
   color: #fff;
   width: 30.4rem;
@@ -1148,8 +1317,8 @@ figure.m_scale.m_scale_on img {
   #pageTop .parallax-section--2 .sense_logo {
     top: auto;
     left: auto;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 7rem;
+    right: 5rem;
     -webkit-transform: translate(0%, 0%);
             transform: translate(0%, 0%);
   }
@@ -1290,7 +1459,7 @@ figure.m_scale.m_scale_on img {
 }
 #pageTop .sense_section--0 .content .main-ttlJp {
   font-size: 5.6rem;
-  font-weight: 700;
+  font-weight: 400;
   color: #fff;
   position: absolute;
   top: 47%;
@@ -2091,6 +2260,14 @@ figure.m_scale.m_scale_on img {
   position: relative;
   overflow: hidden;
 }
+#pageTop .sense_section--10 .content--top .location-item.m_fade_on::before {
+  left: -14rem;
+  top: -13.2rem;
+}
+#pageTop .sense_section--10 .content--top .location-item.m_fade_on::after {
+  right: -13.4rem;
+  bottom: -14rem;
+}
 #pageTop .sense_section--10 .content--top .location-item::before, #pageTop .sense_section--10 .content--top .location-item::after {
   position: absolute;
   content: "";
@@ -2100,14 +2277,18 @@ figure.m_scale.m_scale_on img {
   mix-blend-mode: multiply;
   -webkit-transform: rotate(44.5deg);
           transform: rotate(44.5deg);
+  -webkit-transition: all 1.5s ease;
+  transition: all 1.5s ease;
+  -webkit-transition-delay: 0.1s;
+          transition-delay: 0.1s;
 }
 #pageTop .sense_section--10 .content--top .location-item::before {
-  left: -14rem;
-  top: -13.2rem;
+  left: -100%;
+  top: -100%;
 }
 #pageTop .sense_section--10 .content--top .location-item::after {
-  right: -13.4rem;
-  bottom: -14rem;
+  right: -100%;
+  bottom: -100%;
 }
 #pageTop .sense_section--10 .content--top .location-name {
   position: absolute;

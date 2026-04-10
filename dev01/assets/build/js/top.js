@@ -32,24 +32,47 @@ function initParallax() {
   
     const SCALE_START    = 1.2;
     const PARALLAX_SHIFT = 50;
-  
-    gsap.set(media, { scale: SCALE_START, yPercent: -PARALLAX_SHIFT, force3D: true });
-  
-    gsap.timeline({
+    const logoWrap = section.classList.contains('parallax-section--2')
+      ? section.querySelector('.parallax-logo-wrap')
+      : null;
+
+    const getShiftPx  = () => media.offsetHeight * (PARALLAX_SHIFT / 100);
+    const syncWrapHeight = () => {
+      if (logoWrap) logoWrap.style.height = media.offsetHeight + 'px';
+    };
+    syncWrapHeight();
+
+    gsap.set(media,    { scale: SCALE_START, yPercent: -PARALLAX_SHIFT, force3D: true });
+    if (logoWrap) gsap.set(logoWrap, { y: -getShiftPx(), force3D: true });
+
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: 'top bottom',
         end: 'bottom top',
         scrub: true,
       }
-    }).to(media, {
+    });
+
+    tl.to(media, {
       scale: 1.0,
       yPercent: PARALLAX_SHIFT,
       ease: 'none',
       force3D: true,
-    });
+    }, 0);
+
+    if (logoWrap) {
+      tl.to(logoWrap, {
+        y: () => getShiftPx(),
+        ease: 'none',
+        force3D: true,
+      }, 0);
+    }
+
     ScrollTrigger.addEventListener('refreshInit', () => {
+      syncWrapHeight();
       gsap.set(media, { scale: SCALE_START, yPercent: -PARALLAX_SHIFT });
+      if (logoWrap) gsap.set(logoWrap, { y: -getShiftPx() });
     });
   });
 
@@ -126,16 +149,17 @@ window.addEventListener('DOMContentLoaded', function initLoading() {
     });
 
     setTimeout(() => {
-      changeMode('top');
-      loadingContent.classList.add('fade-out');
-      setTimeout(() => {
-        wrapper.style.opacity = '1';
-        document.getElementById('loading-screen').style.display = 'none';
-        if (window.revealScene0) window.revealScene0();
-        initComTtlWave();
-        initInviewAnimations();
-      }, 800);
-    }, 2800);
+  changeMode('top');
+  loadingContent.classList.add('fade-out');
+  setTimeout(() => {
+    wrapper.style.opacity = '1';
+    document.getElementById('loading-screen').style.display = 'none';
+    if (window.revealScene0) window.revealScene0();
+    initComTtlWave();
+    initInviewAnimations();
+    initCustomScrollbar();
+  }, 800);
+}, 2800);
   });
 });
 
@@ -340,6 +364,8 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+
+// ANIMATION 
 function initInviewAnimations() {
   ['m_left', 'm_right', 'm_op', 'm_down', 'm_scale', 'm_up', 'm_fade'].forEach(cls => {
     document.querySelectorAll('.' + cls).forEach(el => {
@@ -351,4 +377,120 @@ function initInviewAnimations() {
       });
     });
   });
+}
+
+// SCROLLBAR
+function initCustomScrollbar() {
+  const SECTION_SELECTORS = [
+    '#sense_section-1',
+    '#sense_section-2',
+    '#sense_section-3',
+    '#sense_section-4',
+    '#sense_section-5',
+    '#sense_section-6',
+    '#sense_section-7',
+    '#sense_section-8',
+    '#sense_section-9',
+    '#sense_section-10',
+  ];
+
+  const sections = SECTION_SELECTORS
+    .map(s => document.querySelector(s))
+    .filter(Boolean);
+
+  if (!sections.length) return;
+
+  const lightBgSections = [document.querySelector('#sense_section-5'),document.querySelector('#sense_section-6')].filter(Boolean);
+
+  const wrapper = document.createElement('div');
+  wrapper.id = 'custom-scrollbar';
+
+  const itemHTML = `
+    <div class="csb_marker">
+      <div class="csb_dot"></div>
+      <svg class="csb_diamond" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
+        <circle class="csb_diamond-path" cx="6.5" cy="6.5" r="5"/>
+      </svg>
+    </div>
+    <div class="csb_line-bottom">
+      <div class="csb_line-fill"></div>
+    </div>
+  `;
+
+  sections.forEach((_, i) => {
+    const item = document.createElement('div');
+    item.className = 'csb_item';
+    item.dataset.index = i;
+    item.innerHTML = itemHTML;
+    wrapper.appendChild(item);
+  });
+
+  const endDot = document.createElement('div');
+  endDot.className = 'csb_item csb_item--end';
+  endDot.innerHTML = `<div class="csb_marker"><div class="csb_dot"></div></div>`;
+  wrapper.appendChild(endDot);
+
+  document.body.appendChild(wrapper);
+
+  const items = wrapper.querySelectorAll('.csb_item:not(.csb_item--end)');
+
+  lenis.on('scroll', updateScrollbar);
+  updateScrollbar();
+
+  function updateScrollbar() {
+    const triggerMid = window.innerHeight * 0.5;
+    const firstRect  = sections[0].getBoundingClientRect();
+    const lastRect   = sections[sections.length - 1].getBoundingClientRect();
+    const lastMid = lastRect.top + (lastRect.height * 0.5);
+    const barVisible = firstRect.top <= triggerMid && lastRect.bottom > triggerMid;
+    wrapper.classList.toggle('is-visible', barVisible);
+
+    let isLight = false;
+    
+    lightBgSections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= triggerMid && rect.bottom > triggerMid) {
+        isLight = true;
+      }
+    });
+    
+    wrapper.classList.toggle('is-dark', isLight);
+
+    let activeIndex     = -1;
+    let lastPassedIndex = -1;
+
+    sections.forEach((sec, i) => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= triggerMid && rect.bottom > triggerMid) activeIndex = i;
+      if (rect.bottom < triggerMid) lastPassedIndex = i;
+    });
+
+    const freezeIndex = activeIndex !== -1 ? activeIndex : lastPassedIndex;
+
+    sections.forEach((sec, i) => {
+      const rect    = sec.getBoundingClientRect();
+      const item    = items[i];
+      const fill    = item.querySelector('.csb_line-fill');
+
+      const isActive = i === activeIndex;
+      const isFreeze = i === freezeIndex && activeIndex === -1;
+
+      if (isActive) {
+        item.classList.add('is-active');
+        const ratio = Math.min(Math.max((triggerMid - rect.top) / (rect.bottom - rect.top), 0), 1);
+        fill.style.transform = `scaleY(${ratio})`;
+        fill.style.opacity   = '1';
+
+      } else if (isFreeze) {
+        item.classList.add('is-active');
+        fill.style.transform = 'scaleY(1)';
+        fill.style.opacity   = '1';
+
+      } else {
+        item.classList.remove('is-active');
+        fill.style.transform = 'scaleY(0)';
+        fill.style.opacity   = '0';
+      }
+    });
+  }
 }

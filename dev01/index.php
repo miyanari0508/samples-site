@@ -216,11 +216,13 @@ include(dirname(__FILE__) . '/inc/head.php');
           <div class="parallax-img">
             <img src="<?php echo h($path_img); ?>/top/scene-img03.jpg" loading="lazy" width="1956" height="1393" alt="">
           </div>
-          <div class="sense_logo" data-gradient-bg="normal">
-            <span class="logo-ttl f-garamond">ALPHA STATES</span>
-            <span class="logo-sub f-garamond">FUCHU BIJUTSUKAN DORI</span>
-            <div class="logo-divider"></div>
-            <span class="logo-jp f-shippori">アルファステイツ府中美術館通り</span>
+          <div class="parallax-logo-wrap">
+            <div class="sense_logo" data-gradient-bg="normal">
+              <span class="logo-ttl f-garamond">ALPHA STATES</span>
+              <span class="logo-sub f-garamond">FUCHU BIJUTSUKAN DORI</span>
+              <div class="logo-divider"></div>
+              <span class="logo-jp f-shippori">アルファステイツ府中美術館通り</span>
+            </div>
           </div>
         </div>
 
