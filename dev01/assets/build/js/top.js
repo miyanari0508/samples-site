@@ -26,10 +26,11 @@ window.addEventListener('orientationchange', setVh);
 function initParallax() {
   document.querySelectorAll('.parallax-section').forEach(section => {
     if (section.closest('.sense_section--0')) return;
-  
+    if (section.classList.contains('parallax-section--1')) return;
+
     const media = section.querySelector('.parallax-img img, .parallax-img video');
     if (!media) return;
-  
+
     const SCALE_START    = 1.2;
     const PARALLAX_SHIFT = 50;
     const logoWrap = section.classList.contains('parallax-section--2')
@@ -138,6 +139,9 @@ window.addEventListener('DOMContentLoaded', function initLoading() {
   wrapChars(loadingContent);
 
   loadingContent.style.visibility = 'visible';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => loadingContent.style.transform = 'scale(1)');
+  });
 
   requestAnimationFrame(() => {
     Array.from(loadingContent.children).forEach(child => {
@@ -158,8 +162,8 @@ window.addEventListener('DOMContentLoaded', function initLoading() {
     initComTtlWave();
     initInviewAnimations();
     initCustomScrollbar();
-  }, 800);
-}, 2800);
+  }, 1200);
+}, 3800);
   });
 });
 
@@ -186,10 +190,12 @@ function initScene0() {
   gsap.set(section, { opacity: 0 });
   gsap.set(ttlJp, { opacity: 0, y: 16, filter: 'blur(6px)' });
 
-  window.revealScene0 = function () {  
+  window.revealScene0 = function () {
+    gsap.set(video, { width: '100vw', height: '100vh' });
+
     gsap.to(section, {
       opacity: 1,
-      duration: 1.2,
+      duration: 1.4,
       ease: 'power2.out',
       onComplete: () => {
         initParallax();
@@ -198,44 +204,25 @@ function initScene0() {
     });
 
     const chars = Array.from(ttlEn.querySelectorAll('.char'));
-    gsap.set(chars, { opacity: 1, filter: 'none', y: 0 });
-
-    const isMobile = window.innerWidth <= 768;
+    gsap.set(ttlEn, { opacity: 0, y: 16, filter: 'blur(6px)' });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=150%',
+        end: '+=300%',
         scrub: 1.2,
         pin: true,
         anticipatePin: 1,
       }
     });
 
-    if (isMobile) {
-      gsap.set(video, { width: '100vw', height: '50vh' });
-      tl.to(video, {
-        height: '100vh',
-        ease: 'none',
-        duration: 1,
-      }, 0);
-    } else {
-      tl.to(video, {
-        width: '100vw',
-        height: '100vh',
-        ease: 'none',
-        duration: 1,
-      }, 0);
-    }
-
-    tl.to(chars, {
-      opacity: 0,
-      filter: 'blur(6px)',
-      y: -20,
-      ease: 'power2.in',
-      stagger: { each: 0.03, from: 'start' },
-      duration: 0.5,
+    tl.to(ttlEn, {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: 0.3,
+      ease: 'power3.out',
     }, 0)
     .to(ttlJp, {
       opacity: 1,
@@ -243,7 +230,15 @@ function initScene0() {
       filter: 'blur(0px)',
       duration: 0.3,
       ease: 'power3.out',
-    }, 0.7);
+    }, 0)
+    .to(chars, {
+      opacity: 0,
+      filter: 'blur(6px)',
+      y: -20,
+      ease: 'power2.in',
+      stagger: { each: 0.03, from: 'start' },
+      duration: 0.35,
+    }, 0.45);
   };
 }
 

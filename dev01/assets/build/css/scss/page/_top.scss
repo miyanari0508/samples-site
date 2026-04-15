@@ -174,6 +174,8 @@
       text-align: center;
       color: #fff;
       visibility: hidden;
+      transform: scale(0.9);
+      transition: transform 10s ease;
     }
     
     .loading-content .line-top,
@@ -230,7 +232,8 @@
     
     .loading-content.fade-out {
       opacity: 0;
-      transition: opacity 0.8s ease;
+      transform: scale(1.04);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
   }
   
@@ -326,6 +329,16 @@
         }
       }
     }
+
+    &--3 {
+      .parallax-img img {
+        transform-origin: center 285rem;
+
+        @include mq() { 
+          transform-origin: center center;
+        }
+      }
+    }
   }
   
   .parallax-img {
@@ -354,6 +367,10 @@
     &_section {
       .content {
         @include flex_b;
+
+        .video {
+          object-fit: cover;
+        }
 
         .img {
           overflow: hidden;
@@ -393,12 +410,13 @@
 
           .main-video {
             position: absolute;
-            bottom: 0;     
-            left: 0;          
-            width: 50vw;     
-            height: 50vh;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
             z-index: 1;
+            object-fit: cover;
 
             @include mq() {
               width: 100vw !important;
@@ -422,6 +440,7 @@
 
             img,
             video {
+              width: 100%;
               height: 100%;
               object-fit: cover;
             }
@@ -753,6 +772,7 @@
             .video {
               margin-top: 21.6rem;
               width: 38.8%;
+              height: 21.7rem;
               margin-left: 30.5rem;
             }
 
@@ -831,7 +851,7 @@
         background-color: #e8dfd1;
 
         .content {
-          padding: 0 0 10rem;
+          padding: 7.6rem 0 7rem;
 
           &--left {
             width: 49.1%;
@@ -1165,9 +1185,10 @@
             width: 40.3%;
 
             .video {
-              width: 43%;
-              margin-right: -3%;
+              width: 40%;
+              height: 22.2rem;
               margin-left: auto;
+              display: block;
             }
 
             .com-ttl {
@@ -1253,6 +1274,7 @@
 
             .video {
               width: 32%;
+              height: 23.6rem;
               margin-left: 33.8rem;
             } 
 
@@ -1573,7 +1595,7 @@
 
   .footer {
     background-color: #fff;
-    padding: 13rem 0 12.1rem;
+    padding: 13rem 0;
     overflow: hidden;
 
     &-inner {
@@ -1638,9 +1660,107 @@
     }
 
     &-info {
-      width: 81rem;
-      margin-top: 7.3rem;
-      margin-left: -2rem;
+      width: 100rem;
+      margin-top: 9.7rem;
+    }
+
+    &-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 2.4rem;
+      width: 74.4rem;
+      margin: 0 auto;
+
+      a {
+        cursor: pointer;
+        transition: opacity .3s ease;
+
+        &:hover {
+          opacity: .7;
+        }
+      }
+    }
+
+    &-phone {
+      .phone-number {
+        font-size: 4.2rem;
+        color: #1A1A1A;
+        font-weight: 500;
+        display: block;
+        margin-top: 3.5rem;
+        letter-spacing: 0.03em;
+        margin-left: -1.8rem;
+        transition: opacity .3s ease;
+
+        &:hover {
+          opacity: .7;
+        }
+      }
+
+      .phone-txt {
+        font-size: 1.4rem;
+        line-height: 1.6;
+        color: #000;
+        margin-top: 0.7rem;
+      }
+    }
+
+    &-sub-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 2rem;
+      width: 43rem;
+      margin: 2.5rem auto 0;
+
+      a {
+        position: relative;
+        cursor: pointer;
+        transition: opacity .3s ease;
+
+        &:hover {
+          opacity: .7;
+        }
+
+        &::before {
+          position: absolute;
+          content: "";
+          border: 2px solid #555555;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+      }
+    }
+
+    &-companies {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 6rem;
+    }
+
+    &-company {
+      a {
+        cursor: pointer;
+        transition: opacity .3s ease;
+
+        &:hover {
+          opacity: .7;
+        }
+      }
+      
+      &--01 {
+        width: 29.2rem;
+      }
+
+      &--02 {
+        width: 36rem;
+      }
+
+      &--03 {
+        width: 23.8rem;
+      }
     }
 
     @include mq() {
@@ -1652,6 +1772,37 @@
 
       &-info {
         width: 65rem;
+        margin-top: 5rem;
+      }
+
+      &-buttons {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem 0;
+        width: 72%;
+      }
+
+      &-phone {
+        .phone-number {
+          font-size: 6rem;
+        }
+
+        .phone-txt {
+          font-size: 2rem;
+          margin-top: 2rem;
+        }
+      }
+
+      &-sub-buttons {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem 0;
+        width: 34rem;
+        margin-top: 3.5rem;
+      }
+
+      &-companies {
+        flex-direction: column;
+        gap: 4rem 0;
+        align-items: center;
       }
     }
   }

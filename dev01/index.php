@@ -32,10 +32,9 @@ include(dirname(__FILE__) . '/inc/head.php');
       <div class="stage" id="smooth-content">
         <section class="sense_section sense_section--0" id="sense_section-0">
           <div class="sense_content content">
-            <figure class="main-video"><img src="<?php echo h($path_img); ?>/top/scene-img01.jpg" loading="eager" width="1955" height="1393" alt=""></figure>
-            <!-- <video class="main-video" autoplay loop muted playsinline>
-                <source src="<?php echo h($path_img); ?>/top/video.mp4" type="video/mp4">
-              </video> -->
+            <video class="main-video" autoplay loop muted playsinline>
+              <source src="<?php echo h($path_video); ?>/scene-video01.mp4" type="video/mp4">
+            </video>
             <p class="main-ttlJp">杜と暮らす。</p>
             <div class="main-ttlEn">SENSE of FOREST</div>
           </div>
@@ -43,10 +42,9 @@ include(dirname(__FILE__) . '/inc/head.php');
 
         <div class="parallax-section parallax-section--1">
           <div class="parallax-img">
-            <img src="<?php echo h($path_img); ?>/top/scene-img02.jpg" loading="lazy" width="1955" height="1393" alt="">
-            <!-- <video autoplay loop muted playsinline>
-              <source src="<?php echo h($path_img); ?>/top/video.mp4" type="video/mp4">
-            </video> -->
+            <video class="main-video" autoplay loop muted playsinline>
+              <source src="<?php echo h($path_video); ?>/scene-video02.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
 
@@ -127,10 +125,9 @@ include(dirname(__FILE__) . '/inc/head.php');
           <div class="sense_content content">
             <div class="content--left">
               <figure class="img m_fade"><img src="<?php echo h($path_img); ?>/top/scene-04-img01.jpg" loading="lazy" width="468" height="334" alt=""></figure>
-              <figure class="video m_fade"><img src="<?php echo h($path_img); ?>/top/scene-04-img03.jpg" alt=""></figure>
-              <!-- <video class="video m_fade" autoplay loop muted playsinline>
-                <source src="<?php echo h($path_img); ?>/top/video.mp4" type="video/mp4">
-              </video> -->
+              <video class="video m_fade" autoplay loop muted playsinline>
+                <source src="<?php echo h($path_video); ?>/scene-04-video.mp4" type="video/mp4">
+              </video>
               <div class="sense_btn m_left">
                 <a nohref class="com_linkMore">
                   <span class="text">詳細を見る</span>
@@ -269,10 +266,9 @@ include(dirname(__FILE__) . '/inc/head.php');
               </div>
             </div>
             <div class="content--right">
-              <figure class="video m_fade"><img src="<?php echo h($path_img); ?>/top/scene-07-img02.jpg" alt=""></figure>
-              <!-- <video class="video m_fade" autoplay loop muted playsinline>
-                <source src="<?php echo h($path_img); ?>/top/video.mp4" type="video/mp4">
-              </video> -->
+              <video class="video m_fade" autoplay loop muted playsinline>
+                <source src="<?php echo h($path_video); ?>/scene-07-video.mp4" type="video/mp4">
+              </video>
               <h2 class="com-ttl">
                 森を散策する。丘と水辺で遊ぶ。<br>
                 四季の景を楽しむ「府中の森公園」
@@ -305,10 +301,9 @@ include(dirname(__FILE__) . '/inc/head.php');
               </div>
             </div>
             <div class="content--right">
-              <figure class="video m_fade"><img src="<?php echo h($path_img); ?>/top/scene-08-img02.jpg" alt=""></figure>
-              <!-- <video class="video m_fade" autoplay loop muted playsinline>
-                <source src="<?php echo h($path_img); ?>/top/video.mp4" type="video/mp4">
-              </video> -->
+              <video class="video m_fade" autoplay loop muted playsinline>
+                <source src="<?php echo h($path_video); ?>/scene-08-video.mp4" type="video/mp4">
+              </video>
               <figure class="img m_fade"><img src="<?php echo h($path_img); ?>/top/scene-08-img03.jpg" loading="lazy" width="1173" height="715" alt=""></figure>
             </div>
           </div>
@@ -411,7 +406,51 @@ include(dirname(__FILE__) . '/inc/head.php');
           <span>公式サイトを見る</span>
         </a>
       </div>
-      <figure class="footer-info"><img src="<?php echo h($path_img); ?>/common/content-img.png" loading="lazy" width="807" height="463" alt=""></figure>
+      <div class="footer-info">
+        <div class="footer-buttons">
+          <a nohref target="_blank">
+            <img src="<?php echo h($path_img); ?>/common/btn-reserve.png" loading="lazy" width="539" height="129" alt="来場予約">
+          </a>
+          <a nohref target="_blank">
+            <img src="<?php echo h($path_img); ?>/common/btn-entry.png" loading="lazy" width="539" height="129" alt="物件エントリー（資料請求）">
+          </a>
+        </div>
+
+        <div class="footer-phone">
+          <a href="tel:0120000000" class="phone-number">0120-000-000</a>
+          <p class="phone-txt">
+            営業時間／10:00～18:00　<br>
+            定休日／火曜日・水曜日・第2木曜日（祝日除く）
+          </p>
+        </div>
+
+        <div class="footer-sub-buttons">
+          <a nohref target="_blank">
+            <img src="<?php echo h($path_img); ?>/common/btn-online.png" loading="lazy" alt="オンライン相談予約">
+          </a>
+          <a nohref target="_blank">
+            <img src="<?php echo h($path_img); ?>/common/btn-contact.png" loading="lazy" alt="お問い合わせ">
+          </a>
+        </div>
+
+        <div class="footer-companies">
+          <div class="footer-company footer-company--01">
+            <a nohref target="_blank" rel="noopener noreferrer">
+              <img src="<?php echo h($path_img); ?>/common/logo-anabuki-sub.svg" loading="lazy" alt="あなぶき興産">
+            </a>
+          </div>
+          <div class="footer-company footer-company--02">
+            <a nohref target="_blank" rel="noopener noreferrer">
+              <img src="<?php echo h($path_img); ?>/common/logo-kyuden.png" loading="lazy" alt="九電不動産株式会社">
+            </a>
+          </div>
+          <div class="footer-company footer-company--03">
+            <a nohref target="_blank" rel="noopener noreferrer">
+              <img src="<?php echo h($path_img); ?>/common/logo-sanshin.svg" loading="lazy" alt="三信住建">
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

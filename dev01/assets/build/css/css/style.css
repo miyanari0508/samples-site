@@ -1198,6 +1198,12 @@ figure.m_scale.m_scale_on img {
   text-align: center;
   color: #fff;
   visibility: hidden;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  -webkit-transition: -webkit-transform 10s ease;
+  transition: -webkit-transform 10s ease;
+  transition: transform 10s ease;
+  transition: transform 10s ease, -webkit-transform 10s ease;
 }
 #pageTop #loading-screen .loading-content .line-top,
 #pageTop #loading-screen .loading-content .line-sub,
@@ -1253,8 +1259,12 @@ figure.m_scale.m_scale_on img {
 }
 #pageTop #loading-screen .loading-content.fade-out {
   opacity: 0;
-  -webkit-transition: opacity 0.8s ease;
-  transition: opacity 0.8s ease;
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+  -webkit-transition: opacity 0.8s ease, -webkit-transform 0.8s ease;
+  transition: opacity 0.8s ease, -webkit-transform 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease, -webkit-transform 0.8s ease;
 }
 #pageTop #smooth-wrapper {
   opacity: 0;
@@ -1350,6 +1360,16 @@ figure.m_scale.m_scale_on img {
   margin: 1.8rem auto 1rem;
   clip-path: polygon(30% 0, 70% 0, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
 }
+#pageTop .parallax-section--3 .parallax-img img {
+  -webkit-transform-origin: center 285rem;
+          transform-origin: center 285rem;
+}
+@media screen and (max-width: 750px) {
+  #pageTop .parallax-section--3 .parallax-img img {
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+  }
+}
 #pageTop .parallax-img {
   position: relative;
   width: 100%;
@@ -1383,6 +1403,10 @@ figure.m_scale.m_scale_on img {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+#pageTop .sense_section .content .video {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 #pageTop .sense_section .content .img {
   overflow: hidden;
@@ -1425,10 +1449,12 @@ figure.m_scale.m_scale_on img {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 50vw;
-  height: 50vh;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   z-index: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 @media screen and (max-width: 750px) {
   #pageTop .sense_section--0 .content .main-video {
@@ -1453,6 +1479,7 @@ figure.m_scale.m_scale_on img {
 }
 #pageTop .sense_section--0 .content .main-video img,
 #pageTop .sense_section--0 .content .main-video video {
+  width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
@@ -1741,6 +1768,7 @@ figure.m_scale.m_scale_on img {
 #pageTop .sense_section--4 .content--left .video {
   margin-top: 21.6rem;
   width: 38.8%;
+  height: 21.7rem;
   margin-left: 30.5rem;
 }
 #pageTop .sense_section--4 .content--left .sense_btn {
@@ -1816,7 +1844,7 @@ figure.m_scale.m_scale_on img {
   background-color: #e8dfd1;
 }
 #pageTop .sense_section--5 .content {
-  padding: 0 0 10rem;
+  padding: 7.6rem 0 7rem;
 }
 #pageTop .sense_section--5 .content--left {
   width: 49.1%;
@@ -2102,9 +2130,10 @@ figure.m_scale.m_scale_on img {
   width: 40.3%;
 }
 #pageTop .sense_section--8 .content--right .video {
-  width: 43%;
-  margin-right: -3%;
+  width: 40%;
+  height: 22.2rem;
   margin-left: auto;
+  display: block;
 }
 #pageTop .sense_section--8 .content--right .com-ttl {
   margin-top: 20rem;
@@ -2187,6 +2216,7 @@ figure.m_scale.m_scale_on img {
 }
 #pageTop .sense_section--9 .content--right .video {
   width: 32%;
+  height: 23.6rem;
   margin-left: 33.8rem;
 }
 #pageTop .sense_section--9 .content--right .img {
@@ -2470,7 +2500,7 @@ figure.m_scale.m_scale_on img {
 }
 #pageTop .footer {
   background-color: #fff;
-  padding: 13rem 0 12.1rem;
+  padding: 13rem 0;
   overflow: hidden;
 }
 #pageTop .footer-inner {
@@ -2541,9 +2571,100 @@ figure.m_scale.m_scale_on img {
   letter-spacing: 0;
 }
 #pageTop .footer-info {
-  width: 81rem;
-  margin-top: 7.3rem;
-  margin-left: -2rem;
+  width: 100rem;
+  margin-top: 9.7rem;
+}
+#pageTop .footer-buttons {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 2.4rem 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 2.4rem;
+  width: 74.4rem;
+  margin: 0 auto;
+}
+#pageTop .footer-buttons a {
+  cursor: pointer;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+#pageTop .footer-buttons a:hover {
+  opacity: 0.7;
+}
+#pageTop .footer-phone .phone-number {
+  font-size: 4.2rem;
+  color: #1A1A1A;
+  font-weight: 500;
+  display: block;
+  margin-top: 3.5rem;
+  letter-spacing: 0.03em;
+  margin-left: -1.8rem;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+#pageTop .footer-phone .phone-number:hover {
+  opacity: 0.7;
+}
+#pageTop .footer-phone .phone-txt {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #000;
+  margin-top: 0.7rem;
+}
+#pageTop .footer-sub-buttons {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 2rem 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 2rem;
+  width: 43rem;
+  margin: 2.5rem auto 0;
+}
+#pageTop .footer-sub-buttons a {
+  position: relative;
+  cursor: pointer;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+#pageTop .footer-sub-buttons a:hover {
+  opacity: 0.7;
+}
+#pageTop .footer-sub-buttons a::before {
+  position: absolute;
+  content: "";
+  border: 2px solid #555555;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#pageTop .footer-companies {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 6rem;
+}
+#pageTop .footer-company a {
+  cursor: pointer;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+#pageTop .footer-company a:hover {
+  opacity: 0.7;
+}
+#pageTop .footer-company--01 {
+  width: 29.2rem;
+}
+#pageTop .footer-company--02 {
+  width: 36rem;
+}
+#pageTop .footer-company--03 {
+  width: 23.8rem;
 }
 @media screen and (max-width: 750px) {
   #pageTop .footer-linkWeb .link {
@@ -2551,5 +2672,36 @@ figure.m_scale.m_scale_on img {
   }
   #pageTop .footer-info {
     width: 65rem;
+    margin-top: 5rem;
+  }
+  #pageTop .footer-buttons {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem 0;
+    width: 72%;
+  }
+  #pageTop .footer-phone .phone-number {
+    font-size: 6rem;
+  }
+  #pageTop .footer-phone .phone-txt {
+    font-size: 2rem;
+    margin-top: 2rem;
+  }
+  #pageTop .footer-sub-buttons {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem 0;
+    width: 34rem;
+    margin-top: 3.5rem;
+  }
+  #pageTop .footer-companies {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 4rem 0;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 }
