@@ -26,7 +26,6 @@ window.addEventListener('orientationchange', setVh);
 function initParallax() {
   document.querySelectorAll('.parallax-section').forEach(section => {
     if (section.closest('.sense_section--0')) return;
-    if (section.classList.contains('parallax-section--1')) return;
 
     const media = section.querySelector('.parallax-img img, .parallax-img video');
     if (!media) return;
@@ -192,10 +191,12 @@ function initScene0() {
 
   window.revealScene0 = function () {
     gsap.set(video, { width: '100vw', height: '100vh' });
+    gsap.set(ttlEn, { opacity: 0, y: 16, filter: 'blur(6px)' });
+
 
     gsap.to(section, {
       opacity: 1,
-      duration: 1.4,
+      duration: 0.9,
       ease: 'power2.out',
       onComplete: () => {
         initParallax();
@@ -204,41 +205,40 @@ function initScene0() {
     });
 
     const chars = Array.from(ttlEn.querySelectorAll('.char'));
-    gsap.set(ttlEn, { opacity: 0, y: 16, filter: 'blur(6px)' });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=300%',
-        scrub: 1.2,
+        end: '+=70%',
+        scrub: 0.5,
         pin: true,
         anticipatePin: 1,
       }
     });
 
     tl.to(ttlEn, {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration: 0.3,
-      ease: 'power3.out',
+      opacity: 1, y: 0, filter: 'blur(0px)',
+      duration: 0.15, ease: 'power3.out',
     }, 0)
     .to(ttlJp, {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration: 0.3,
-      ease: 'power3.out',
+      opacity: 1, y: 0, filter: 'blur(0px)',
+      duration: 0.15, ease: 'power3.out',
     }, 0)
     .to(chars, {
       opacity: 0,
       filter: 'blur(6px)',
       y: -20,
       ease: 'power2.in',
-      stagger: { each: 0.03, from: 'start' },
-      duration: 0.35,
-    }, 0.45);
+      stagger: { each: 0.02, from: 'start' },
+      duration: 0.3,
+    }, 0.12)
+    .to(ttlJp, {
+      opacity: 0,
+      filter: 'blur(6px)',
+      y: -10,
+      duration: 0.2,
+    }, 0.3);
   };
 }
 
