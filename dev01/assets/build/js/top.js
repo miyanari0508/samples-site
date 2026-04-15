@@ -30,7 +30,7 @@ function initParallax() {
     const media = section.querySelector('.parallax-img img, .parallax-img video');
     if (!media) return;
 
-    const SCALE_START    = 1.2;
+    const SCALE_START    = 1.3;
     const PARALLAX_SHIFT = 50;
     const logoWrap = section.classList.contains('parallax-section--2')
       ? section.querySelector('.parallax-logo-wrap')
