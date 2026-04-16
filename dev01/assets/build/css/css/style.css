@@ -1361,8 +1361,8 @@ figure.m_scale.m_scale_on img {
   clip-path: polygon(30% 0, 70% 0, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
 }
 #pageTop .parallax-section--3 .parallax-img img {
-  -webkit-transform-origin: center 285rem;
-          transform-origin: center 285rem;
+  -webkit-transform-origin: center 190rem;
+          transform-origin: center 190rem;
 }
 @media screen and (max-width: 750px) {
   #pageTop .parallax-section--3 .parallax-img img {

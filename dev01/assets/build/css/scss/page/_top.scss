@@ -332,7 +332,7 @@
 
     &--3 {
       .parallax-img img {
-        transform-origin: center 285rem;
+        transform-origin: center 190rem;
 
         @include mq() { 
           transform-origin: center center;
