@@ -204,6 +204,12 @@ function initScene0() {
       }
     });
 
+    gsap.to([ttlJp, ttlEn], {
+      opacity: 1, y: 0, filter: 'blur(0px)',
+      duration: 0.8, ease: 'power3.out',
+      delay: 0.3,
+    });
+
     const chars = Array.from(ttlEn.querySelectorAll('.char'));
 
     const tl = gsap.timeline({
@@ -217,28 +223,14 @@ function initScene0() {
       }
     });
 
-    tl.to(ttlEn, {
-      opacity: 1, y: 0, filter: 'blur(0px)',
-      duration: 0.15, ease: 'power3.out',
-    }, 0)
-    .to(ttlJp, {
-      opacity: 1, y: 0, filter: 'blur(0px)',
-      duration: 0.15, ease: 'power3.out',
-    }, 0)
-    .to(chars, {
+    tl.to(chars, {
       opacity: 0,
       filter: 'blur(6px)',
       y: -20,
       ease: 'power2.in',
       stagger: { each: 0.02, from: 'start' },
       duration: 0.3,
-    }, 0.12)
-    .to(ttlJp, {
-      opacity: 0,
-      filter: 'blur(6px)',
-      y: -10,
-      duration: 0.2,
-    }, 0.3);
+    }, 0.12);
   };
 }
 
